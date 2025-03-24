@@ -1,4 +1,4 @@
-import { conjugationRules, radicalChangingVerbs } from './data/verbs.js';
+import { conjugationRules, radicalChangingVerbs } from './verbs.js';
 
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
