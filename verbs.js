@@ -252,41 +252,29 @@ const conjugationRules = {
     "imperativo afirmativo": {
         "ar": {
             "tú": "a",
-            "él": "e",
-            "ella": "e",
             "usted": "e",
             "nosotros": "emos",
             "nosotras": "emos",
             "vosotros": "ad",
             "vosotras": "ad",
-            "ellos": "en",
-            "ellas": "en",
             "ustedes": "en"
         },
         "er": {
             "tú": "e",
-            "él": "a",
-            "ella": "a",
             "usted": "a",
             "nosotros": "amos",
             "nosotras": "amos",
             "vosotros": "ed",
             "vosotras": "ed",
-            "ellos": "an",
-            "ellas": "an",
             "ustedes": "an"
         },
         "ir": {
             "tú": "e",
-            "él": "a",
-            "ella": "a",
             "usted": "a",
             "nosotros": "amos",
             "nosotras": "amos",
             "vosotros": "id",
             "vosotras": "id",
-            "ellos": "an",
-            "ellas": "an",
             "ustedes": "an"
         }
     }
