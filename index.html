@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Verb Drill Practice</title>
+    <title>Ejercicios de conjugación</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="container">
         <div class="content">
-            <h2>Verb Drill</h2>
+            <h2>Verbos</h2>
             <div class="question-part">
-                <strong><img src="https://img.icons8.com/material-outlined/24/000000/speech-bubble.png" alt="Verb Icon"/> Verb:</strong>
+                <strong><img src="https://img.icons8.com/material-outlined/24/000000/speech-bubble.png" alt="Verb Icon"/> Verbo:</strong>
                 <span id="verb" class="highlight"></span>
             </div>
             <div class="question-part">
-                <strong><img src="https://img.icons8.com/material-outlined/24/000000/user.png" alt="Subject Icon"/> Subject:</strong>
+                <strong><img src="https://img.icons8.com/material-outlined/24/000000/user.png" alt="Subject Icon"/> Sujeto:</strong>
                 <span id="subject" class="highlight"></span>
             </div>
             <div class="question-part">
-                <strong><img src="https://img.icons8.com/material-outlined/24/000000/clock.png" alt="Tense Icon"/> Tense:</strong>
+                <strong><img src="https://img.icons8.com/material-outlined/24/000000/clock.png" alt="Tense Icon"/> Tiempo:</strong>
                 <span id="tense" class="highlight"></span>
             </div>
-            <input type="text" id="answer" placeholder="Enter the correct form (without the subject)" onkeydown="handleKeyPress(event)">
-            <button onclick="checkAnswer()">Submit</button>
+            <input type="text" id="answer" placeholder="Escriba la forma correcta (sin el sujeto)" onkeydown="handleKeyPress(event)">
+            <button onclick="checkAnswer()">Enviar</button>
             <p id="feedback"></p>
-            <p id="counter">Correct Answers: <span id="correctAnswers">0</span></p>
-            <p id="highScore">High Score: <span id="highScoreValue">0</span></p>
-            <p id="streak">Streak: <span id="streakCount">0</span></p>
+            <p id="counter">Respuestas correctas: <span id="correctAnswers">0</span></p>
+            <p id="highScore">Puntaje alto: <span id="highScoreValue">0</span></p>
+            <p id="streak">Racha: <span id="streakCount">0</span></p>
         </div>
     </div>
     <script src="script.js" type="module"></script>

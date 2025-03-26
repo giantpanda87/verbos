@@ -1,13 +1,23 @@
-import { conjugationRules, radicalChangingVerbs } from './verbs.js';
+import conjugationRules from './src/data/conjugationRules.js';
+import radicalChangingVerbs from './src/data/radicalChangingVerbs.js';
+import irregularVerbs from './src/data/irregularVerbs.js';
+import SpanishVerbs from './src/data/verbs.js';
 
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
 const subjects = ["yo", "tú", "él", "ella", "usted", "nosotros", "nosotras", "ellos", "ellas", "ustedes"];
-const commonVerbs = ["ser", "estar", "tener", "hacer", "ir", "decir", "ver", "dar", "saber", "poder", "querer", "llegar", "pasar", "deber", "poner", "creer", "hablar", "llevar", "dejar", "seguir"];
-const businessVerbs = ["analizar", "gestionar", "desarrollar", "implementar", "optimizar", "coordinar", "evaluar", "negociar", "planificar", "presentar", "colaborar", "delegar", "invertir", "promover", "organizar", "dirigir", "supervisar", "comunicar", "estrategizar", "evaluar"];
 const tenses = ["presente", "imperfecto", "pretérito", "futuro", "condicional", "pretérito perfecto", "subjuntivo de presente", "imperativo afirmativo"];
+
+const accentedVerbs = {
+    dar: {
+        "subjuntivo de presente": ["yo", "él", "ella", "usted"] // Forms requiring accents
+    },
+    estar: {
+        "subjuntivo de presente": ["yo", "tú", "él", "ella", "usted", "ellos", "ellas", "ustedes"] // Forms requiring accents
+    }
+};
 
 let currentVerb, currentSubject, currentTense;
 let correctAnswers = 0;
@@ -17,30 +27,60 @@ let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getIte
 document.getElementById('highScoreValue').innerText = highScore;
 
 function conjugateVerb(subject, verb, tense) {
+    // Check for irregular verbs
+    if (irregularVerbs[verb] && irregularVerbs[verb][tense]) {
+        return irregularVerbs[verb][tense][subject];
+    }
+
     const verbEnding = verb.slice(-2); // "ar", "er", or "ir"
     const verbStem = verb.slice(0, -2); // Remove the ending
     const rules = conjugationRules[tense];
 
-    // Check for radical-changing verbs
+    // Handle accented verbs
+    if (accentedVerbs[verb] && accentedVerbs[verb][tense]) {
+        const accentedForms = accentedVerbs[verb][tense];
+        if (accentedForms.includes(subject)) {
+            // Add an accent to the last vowel of the conjugated form
+            const conjugated = rules[verbEnding][subject];
+            return conjugated.replace(/([aeiou])([^aeiou]*)$/, "$1́$2"); // Add accent
+        }
+    }
+    
+    // Handle spelling changes for "-car", "-gar", and "-zar" verbs
+    let modifiedStem = verbStem;
+    if (["car", "gar", "zar"].some(suffix => verb.endsWith(suffix)) && tense === "subjuntivo de presente") {
+        if (verb.endsWith("car")) {
+            verbStem = verbStem.replace(/c$/, "qu");
+        } else if (verb.endsWith("gar")) {
+            verbStem = verbStem.replace(/g$/, "gu");
+        } else if (verb.endsWith("zar")) {
+            verbStem = verbStem.replace(/z$/, "c");
+        }
+    }
+
+    // Handle radical-changing verbs
     if (radicalChangingVerbs[verb] && radicalChangingVerbs[verb].tenses.includes(tense)) {
         const change = radicalChangingVerbs[verb];
-        const radical = Object.keys(change)[0]; // e.g., "e" or "o"
-        const replacement = change[radical]; // e.g., "ie" or "ue"
-        const stemChangeRegex = new RegExp(radical, "g");
-        const modifiedStem = verbStem.replace(stemChangeRegex, replacement);
-        return modifiedStem + rules[verbEnding][subject];
+        const radical = Object.keys(change)[0]; // e.g., "o" or "e"
+        const replacement = change[radical]; // e.g., "ue" or "ie"
+
+        // Apply the stem change only to the first occurrence of the radical
+        const stemChangeRegex = new RegExp(radical);
+        if (!["nosotros", "vosotros", "nosotras", "vosotras"].includes(subject)) {
+            modifiedStem = modifiedStem.replace(stemChangeRegex, replacement);
+        }
     }
 
     // Regular conjugation
     if (rules) {
         if (rules[verbEnding] && rules[verbEnding][subject]) {
-            return verbStem + rules[verbEnding][subject];
+            return modifiedStem + rules[verbEnding][subject];
         } else if (rules["infinitive"] && rules["infinitive"][subject]) {
             return verb + rules["infinitive"][subject];
         } else if (rules["auxiliary"] && rules["past participle"]) {
             const auxiliary = rules["auxiliary"][subject];
             const participle = rules["past participle"][verbEnding];
-            return `${auxiliary} ${verbStem}${participle}`;
+            return `${auxiliary} ${modifiedStem}${participle}`;
         }
     }
 
@@ -49,9 +89,15 @@ function conjugateVerb(subject, verb, tense) {
 }
 
 function newQuestion() {
-    currentSubject = getRandomElement(subjects);
-    currentVerb = getRandomElement([...commonVerbs, ...businessVerbs]);
     currentTense = getRandomElement(tenses);
+
+    // Filter subjects for "imperativo afirmativo"
+    const validSubjects = currentTense === "imperativo afirmativo"
+        ? ["tú", "usted", "vosotros", "vosotras", "ustedes", "nosotros", "nosotras"]
+        : subjects;
+
+    currentSubject = getRandomElement(validSubjects);
+    currentVerb = getRandomElement(SpanishVerbs);
 
     document.getElementById("verb").innerText = currentVerb;
     document.getElementById("subject").innerText = currentSubject;

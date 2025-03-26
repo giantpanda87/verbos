@@ -1,24 +1,3 @@
-const commonSpanishVerbs = [
-    "ser", "estar", "tener", "hacer", "ir", "decir", "ver", "dar", "saber", "querer",
-    "poder", "venir", "salir", "traer", "hablar", "comer", "vivir", "pensar", "trabajar", "leer"
-];
-
-const businessSpanishVerbs = [
-    "negociar", "invertir", "analizar", "planificar", "gestionar", "colaborar", "desarrollar", "presentar",
-    "evaluar", "organizar", "promover", "vender", "comprar", "contratar", "consultar", "liderar", "optimizar",
-    "estrategizar", "implementer", "coordinar"
-];
-
-const radicalChangingVerbs = {
-    "pensar": { "e": "ie", "tenses": ["presente"] },
-    "poder": { "o": "ue", "tenses": ["presente"] },
-    "pedir": { "e": "i", "tenses": ["presente"] },
-    "jugar": { "u": "ue", "tenses": ["presente"] },
-    "dormir": { "o": "ue", "tenses": ["presente"] },
-    "sentir": { "e": "ie", "tenses": ["presente"] },
-    "servir": { "e": "i", "tenses": ["presente"] }
-};
-
 const conjugationRules = {
     presente: {
         "ar": {
@@ -280,4 +259,4 @@ const conjugationRules = {
     }
 };
 
-export { commonSpanishVerbs, businessSpanishVerbs, conjugationRules, radicalChangingVerbs };
+export default conjugationRules;
