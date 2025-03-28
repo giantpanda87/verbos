@@ -196,6 +196,54 @@ const irregularVerbs = {
             "ustedes": "digan"
         }
     },
+    poder: {
+        pretérito: {
+            "yo": "pude",
+            "tú": "pudiste",
+            "él": "pudo",
+            "ella": "pudo",
+            "usted": "pudo",
+            "nosotros": "pudimos",
+            "nosotras": "pudimos",
+            "vosotros": "pudisteis",
+            "vosotras": "pudisteis",
+            "ellos": "pudieron",
+            "ellas": "pudieron",
+            "ustedes": "pudieron"
+        }
+    },
+    tener: {
+        "subjuntivo de presente": {
+            "yo": "tenga",
+            "tú": "tengas",
+            "él": "tenga",
+            "ella": "tenga",
+            "usted": "tenga",
+            "nosotros": "tengamos",
+            "nosotras": "tengamos",
+            "vosotros": "tengáis",
+            "vosotras": "tengáis",
+            "ellos": "tengan",
+            "ellas": "tengan",
+            "ustedes": "tengan"
+        }
+    },
+    hacer: {
+        pretérito: {
+            "yo": "hice",
+            "tú": "hiciste",
+            "él": "hizo",
+            "ella": "hizo",
+            "usted": "hizo",
+            "nosotros": "hicimos",
+            "nosotras": "hicimos",
+            "vosotros": "hicisteis",
+            "vosotras": "hicisteis",
+            "ellos": "hicieron",
+            "ellas": "hicieron",
+            "ustedes": "hicieron"
+        }
+    }
     // Add more irregular verbs as needed...
 };
 

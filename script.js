@@ -26,6 +26,19 @@ let highScore = localStorage.getItem('highScore') ? parseInt(localStorage.getIte
 
 document.getElementById('highScoreValue').innerText = highScore;
 
+function conjugatePreterite(subject, verb, tense) {
+    if (tense === "pretérito") {
+        const irregular = conjugatePreterite(verb, subject);
+        if (irregular) return irregular;
+    }
+
+    // Fallback to regular conjugation rules
+    const verbEnding = verb.slice(-2); // "ar", "er", or "ir"
+    const verbStem = verb.slice(0, -2);
+    const rules = conjugationRules[tense];
+    return verbStem + rules[verbEnding][subject];
+}
+
 function conjugateVerb(subject, verb, tense) {
     // Check for irregular verbs
     if (irregularVerbs[verb] && irregularVerbs[verb][tense]) {
